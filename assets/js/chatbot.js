@@ -103,13 +103,14 @@
 
   function init() {
     var config = window.ChatbotConfig || {};
-    if (!config.apiEndpoint) config.apiEndpoint = '/api/chat';
+    if (!config.apiEndpoint) config.apiEndpoint = '/webaiinterface/akshamrit/root';
 
     if (!config.apiKey) {
       console.warn('ChatbotConfig.apiKey is not set — chatbot disabled.');
       return;
     }
 
+    var widget = document.getElementById('chatbot-widget');
     var toggleBtn = document.getElementById('chatbot-toggle');
     var chatWindow = document.getElementById('chatbot-window');
     var closeBtn = document.getElementById('chatbot-close');
@@ -132,16 +133,41 @@
       sessionStorage.setItem(MESSAGES_KEY, JSON.stringify(storedMessages));
     }
 
+    if (storedMessages.length === 0) {
+      addAndPersist('ai', 'Hi there! Welcome to Akshamrit AI 👋 I\'m Aksh, your AI assistant. Are you looking to automate customer conversations for your business, or just exploring what we offer?');
+    }
+
+    function openChat() {
+      chatWindow.classList.remove('chatbot-hidden');
+      if (widget) widget.classList.add('chatbot-open');
+      input.focus();
+    }
+
+    function closeChat() {
+      chatWindow.classList.add('chatbot-hidden');
+      if (widget) widget.classList.remove('chatbot-open');
+    }
+
     toggleBtn.addEventListener('click', function () {
-      chatWindow.classList.toggle('chatbot-hidden');
-      if (!chatWindow.classList.contains('chatbot-hidden')) {
-        input.focus();
+      if (chatWindow.classList.contains('chatbot-hidden')) {
+        openChat();
+      } else {
+        closeChat();
       }
     });
 
-    closeBtn.addEventListener('click', function () {
-      chatWindow.classList.add('chatbot-hidden');
-    });
+    closeBtn.addEventListener('click', closeChat);
+
+    window.ChatbotWidget = {
+      open: openChat,
+      openAndSend: function (message) {
+        openChat();
+        setTimeout(function () {
+          input.value = message;
+          handleSend();
+        }, 120);
+      }
+    };
 
     function handleSend() {
       var text = input.value.trim();

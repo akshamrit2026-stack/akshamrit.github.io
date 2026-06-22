@@ -4,6 +4,28 @@
   right: 24px;
   z-index: 9999;
   font-family: 'Poppins', Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#chatbot-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: 10px;
+  padding: 2px 9px;
+  margin-top: 6px;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+#chatbot-widget.chatbot-open #chatbot-label {
+  display: none;
 }
 
 #chatbot-toggle {
@@ -225,6 +247,12 @@
   #chatbot-widget {
     bottom: 14px;
     right: 14px;
+  }
+
+  #chatbot-label {
+    font-size: 0.6rem;
+    padding: 2px 7px;
+    margin-top: 4px;
   }
 
   #chatbot-toggle {

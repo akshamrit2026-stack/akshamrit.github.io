@@ -86,7 +86,7 @@
               <p data-aos="fade-up" data-aos-delay="300">Akshamrit AI replies to customers instantly, organizes every order, and keeps buyers updated — built for small and medium business owners who wear every hat. 
                 Akshamrit AI handles the back-and-forth so you can run your business instead of replying to messages all day.</p>
               <div class="hero-cta" data-aos="fade-up" data-aos-delay="400">
-                <a href="#about" class="btn-primary">Get Started Today</a>
+                <a href="#" class="btn-primary" onclick="event.preventDefault(); window.ChatbotWidget && window.ChatbotWidget.openAndSend('Help me get started with Akshamrit');">Get Started Today</a>
                 <!-- Demo Button. Enable when you have a demo video -->
                  <!--
                 <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="btn-secondary glightbox">
@@ -364,6 +364,7 @@
     <button id="chatbot-toggle" title="Chat with us">
       <i class="bi bi-chat-dots-fill"></i>
     </button>
+    <span id="chatbot-label">AI Chat</span>
 
     <div id="chatbot-window" class="chatbot-hidden">
       <div class="chatbot-header">
