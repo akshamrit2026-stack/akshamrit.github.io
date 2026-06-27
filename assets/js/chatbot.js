@@ -76,6 +76,9 @@
   }
 
   async function postChat(message, sessionId, config) {
+    const now = new Date();
+    const user_time = now.toLocaleString('en-CA', { hour12: false })
+                    + ' ' + Intl.DateTimeFormat().resolvedOptions().timeZone;
     const res = await fetch(config.apiEndpoint, {
       method: 'POST',
       headers: {
@@ -84,7 +87,8 @@
       },
       body: JSON.stringify({
         message: message,
-        session_id: sessionId
+        session_id: sessionId,
+        user_time: user_time
       }),
       signal: AbortSignal.timeout(90000)
     });
@@ -103,7 +107,7 @@
 
   function init() {
     var config = window.ChatbotConfig || {};
-    if (!config.apiEndpoint) config.apiEndpoint = '/webaiinterface/akshamrit/root';
+    if (!config.apiEndpoint) config.apiEndpoint = '/webaiinterface/1000000000/root';
 
     if (!config.apiKey) {
       console.warn('ChatbotConfig.apiKey is not set — chatbot disabled.');
